@@ -285,18 +285,18 @@ work() {
             echo "📋 Starting Linear issue: $ISSUE_ID"
 
             # Check if linear CLI is available
-            if ! command -v linear &> /dev/null; then
-                echo "❌ Linear CLI not found in PATH"
-                echo "💡 Make sure deno linear-cli is installed and ~/.deno/bin is in PATH"
+            if [ ! -f "$HOME/.deno/bin/linear" ]; then
+                echo "❌ Linear CLI not found at ~/.deno/bin/linear"
+                echo "💡 Make sure deno linear-cli is installed"
                 return 1
             fi
 
             # Get Linear issue URL
-            LINEAR_URL=$(linear i url "$ISSUE_ID" 2>/dev/null | grep -E '^https://')
+            LINEAR_URL=$("$HOME/.deno/bin/linear" i url "$ISSUE_ID" 2>/dev/null | grep -E '^https://')
 
             # Use linear issue start to automatically create and checkout branch
             echo "🚀 Starting issue (this will create/checkout the branch)..."
-            if linear issue start "$ISSUE_ID" 2>/dev/null; then
+            if "$HOME/.deno/bin/linear" issue start "$ISSUE_ID" 2>/dev/null; then
                 echo "✓ Issue started and branch checked out"
 
                 # Get current branch name for display

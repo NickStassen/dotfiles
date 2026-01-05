@@ -24,9 +24,12 @@ chmod +x install.sh install-dependencies.sh
 ./install.sh
 ./install-dependencies.sh
 
-# Set up secrets
+# Set up secrets and Linear configuration
 cat > ~/.zshrc.local << 'EOF'
 export LINEAR_API_KEY=your_api_key_here
+export LINEAR_TEAM_ID="CT"
+export LINEAR_WORKSPACE="lighthouseavionics"
+export LINEAR_ISSUE_SORT="manual"
 EOF
 
 # Reload shell
@@ -78,11 +81,18 @@ Never commit secrets to this repository! Instead:
 
 1. Create `~/.zshrc.local` on each machine:
 ```bash
+# Machine-specific secrets and configuration
 export LINEAR_API_KEY=your_api_key_here
-export OTHER_SECRET=value
+
+# Linear CLI - Global team defaults (avoids needing .linear.toml in each repo)
+export LINEAR_TEAM_ID="CT"
+export LINEAR_WORKSPACE="lighthouseavionics"
+export LINEAR_ISSUE_SORT="manual"
 ```
 
 2. This file is automatically loaded by `.zshrc` but ignored by git
+
+**Note**: Setting `LINEAR_TEAM_ID` and `LINEAR_WORKSPACE` as environment variables means you won't need to run `linear config` in each repository - these settings apply globally across all repos.
 
 ## Updating
 

@@ -49,10 +49,16 @@ This creates symlinks from `~/dotfiles/*` to `~/.zshrc`, `~/.gitconfig`, etc.
 
 This installs all the tools (zsh, oh-my-zsh, modern CLI tools, etc.)
 
-### 4. Set Up Secrets
+### 4. Set Up Secrets and Linear Configuration
 ```bash
 cat > ~/.zshrc.local << 'EOF'
+# Machine-specific secrets and configuration
 export LINEAR_API_KEY=your_api_key_here
+
+# Linear CLI - Global team defaults (avoids needing .linear.toml in each repo)
+export LINEAR_TEAM_ID="CT"
+export LINEAR_WORKSPACE="lighthouseavionics"
+export LINEAR_ISSUE_SORT="manual"
 EOF
 ```
 

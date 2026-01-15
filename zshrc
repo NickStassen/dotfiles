@@ -117,12 +117,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # GitHub Copilot alias for bash
-eval "$(gh copilot alias -- bash)"
 
 # Clipboard aliases using xsel
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
-source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -64,15 +64,14 @@ if [ "$OS" = "ubuntu" ] || [ "$OS" = "debian" ]; then
         sudo apt-get install -y gh
     fi
 
-    # Install eza (modern ls replacement)
+    # Install eza (modern ls replacement) from GitHub releases
     if ! command -v eza &> /dev/null; then
-        echo "Installing eza..."
-        sudo mkdir -p /etc/apt/keyrings
-        wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-        echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
-        sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-        sudo apt-get update
-        sudo apt-get install -y eza
+        echo "Installing eza from GitHub releases..."
+        EZA_VERSION=$(curl -s https://api.github.com/repos/eza-community/eza/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+        wget -qO /tmp/eza.tar.gz "https://github.com/eza-community/eza/releases/download/${EZA_VERSION}/eza_x86_64-unknown-linux-gnu.tar.gz"
+        sudo tar -xzf /tmp/eza.tar.gz -C /usr/local/bin
+        rm /tmp/eza.tar.gz
+        echo "✅ eza ${EZA_VERSION} installed"
     fi
 
 elif [ "$OS" = "darwin" ]; then

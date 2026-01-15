@@ -27,7 +27,6 @@ if [ "$OS" = "ubuntu" ] || [ "$OS" = "debian" ]; then
         fd-find \
         ripgrep \
         fzf \
-        eza \
         zoxide \
         xdotool \
         wmctrl \
@@ -67,7 +66,6 @@ elif [ "$OS" = "darwin" ]; then
         fd \
         ripgrep \
         fzf \
-        eza \
         zoxide \
         git-delta \
         gh
@@ -108,7 +106,7 @@ fi
 # Install Linear CLI
 if [ ! -f "$HOME/.deno/bin/linear" ]; then
     echo "Installing Linear CLI..."
-    "$HOME/.deno/bin/deno" install --allow-all --name linear --force https://jsr.io/@schpet/linear-cli/1.5.0/src/main.ts
+    "$HOME/.deno/bin/deno" install --global --allow-all --name linear --force https://jsr.io/@schpet/linear-cli/1.5.0/src/main.ts
 fi
 
 echo ""

@@ -30,7 +30,22 @@ if [ "$OS" = "ubuntu" ] || [ "$OS" = "debian" ]; then
         zoxide \
         xdotool \
         wmctrl \
+        zsh-syntax-highlighting \
         xsel
+
+    # Install Nerd Fonts (MesloLGS NF - recommended for Powerlevel10k)
+    if ! fc-list | grep -qi "MesloLGS"; then
+        echo "Installing MesloLGS Nerd Font..."
+        mkdir -p ~/.local/share/fonts
+        cd ~/.local/share/fonts
+        curl -fLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+        curl -fLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+        curl -fLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+        curl -fLO https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+        fc-cache -fv
+        cd -
+        echo "✅ MesloLGS NF font installed"
+    fi
 
     # Install delta
     if ! command -v delta &> /dev/null; then
@@ -80,7 +95,8 @@ fi
 # Install Powerlevel10k
 if [ ! -d "$HOME/powerlevel10k" ]; then
     echo "Installing Powerlevel10k..."
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+    # Clone p10k to the correct oh-my-zsh location
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
 # Install ZSH plugins

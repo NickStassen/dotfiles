@@ -136,8 +136,9 @@ export PATH="$PATH:/home/nick/Software/mutagen"
 eval "$(zoxide init zsh)"
 
   # FZF configuration
-  export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --style=numbers --color=always --line-range :500 {}' 2>/dev/null"
-  export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
+  export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --border"
+  export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:2:wrap"
 
   # FZF key bindings
   [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh

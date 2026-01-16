@@ -137,7 +137,7 @@ eval "$(zoxide init zsh)"
 
   # FZF configuration
   export FZF_DEFAULT_OPTS="--height 80% --layout=reverse --border"
-  export FZF_CTRL_T_OPTS="--preview 'batcat --style=numbers --color=always --line-range :500 {}'"
+  export FZF_CTRL_T_OPTS="--preview '[[ -f {} ]] && batcat --style=numbers --color=always --line-range :500 {} || [[ -d {} ]] && eza --tree --level=2 --icons --color=always {}'"
   export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:2:wrap"
 
   # FZF key bindings

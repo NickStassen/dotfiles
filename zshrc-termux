@@ -135,5 +135,8 @@ review-pr() {
     echo "📍 Terminal: $(pwd)"
 }
 
+# Disable gitstatus on Termux (build issues on Android)
+POWERLEVEL9K_DISABLE_GITSTATUS=true
+
 # Load local secrets (not tracked in git)
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

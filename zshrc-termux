@@ -138,5 +138,12 @@ review-pr() {
 # Disable gitstatus on Termux (build issues on Android)
 POWERLEVEL9K_DISABLE_GITSTATUS=true
 
+# Custom username/hostname for prettier prompt
+export DEFAULT_USER="nick"
+export POWERLEVEL9K_CONTEXT_TEMPLATE="nick@termux"
+
+# Or to hide user@host entirely, uncomment:
+# typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+
 # Load local secrets (not tracked in git)
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

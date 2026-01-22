@@ -14,7 +14,9 @@ pkg install -y \
     curl \
     wget \
     jq \
-    nodejs
+    nodejs \
+    cmake \
+    binutils
 
 # Install modern CLI tools
 echo "Installing modern CLI tools..."

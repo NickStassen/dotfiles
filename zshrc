@@ -368,43 +368,64 @@ work() {
         fi
     fi
 
-    # 2. Open VSCode on MIDDLE monitor (fullscreen)
+    # 2. Open VSCode on MIDDLE monitor (maximized, not fullscreen so it stays movable)
     echo "📂 Opening VSCode on middle monitor..."
     code . > /dev/null 2>&1 &
     sleep 2
 
-    # Find and move VSCode window to middle monitor and fullscreen
     local VSCODE_WIN=$(wmctrl -l | grep -E "Visual Studio Code|Code -" | tail -1 | awk '{print $1}')
     if [ -n "$VSCODE_WIN" ]; then
+        wmctrl -i -r "$VSCODE_WIN" -b remove,maximized_vert,maximized_horz,fullscreen
+        sleep 0.2
         wmctrl -i -r "$VSCODE_WIN" -e 0,1920,0,1920,1080
         sleep 0.3
-        wmctrl -i -r "$VSCODE_WIN" -b add,fullscreen
+        wmctrl -i -r "$VSCODE_WIN" -b add,maximized_vert,maximized_horz
     fi
 
     # 3. Open new terminal on RIGHT monitor (left half) running claude
     echo "🤖 Opening Claude terminal on right monitor (left half)..."
-    gnome-terminal --window --maximize -- bash -c "cd '$WORK_DIR' && claude --dangerously-skip-permissions; exec bash" > /dev/null 2>&1 &
+
+    # Record existing terminal windows before launching the new one
+    local EXISTING_TERMS=$(xdotool search --class "gnome-terminal" 2>/dev/null | sort)
+
+    gnome-terminal --window -- bash -c "cd '$WORK_DIR' && claude --dangerously-skip-permissions; exec bash" > /dev/null 2>&1 &
     sleep 1.5
 
-    # Find and position Claude terminal to left half of right monitor
-    local CLAUDE_TERM=$(wmctrl -l | grep -i "Terminal" | tail -1 | awk '{print $1}')
+    # Find the new terminal window by diffing against pre-existing list
+    local CLAUDE_TERM=""
+    for wid in $(xdotool search --class "gnome-terminal" 2>/dev/null | sort); do
+        if ! echo "$EXISTING_TERMS" | grep -qx "$wid"; then
+            CLAUDE_TERM="$wid"
+            break
+        fi
+    done
+
     if [ -n "$CLAUDE_TERM" ]; then
-        wmctrl -i -r "$CLAUDE_TERM" -b remove,maximized_vert,maximized_horz
+        # Clear any maximized/fullscreen state, move to right monitor, then tile left
+        wmctrl -i -r "$CLAUDE_TERM" -b remove,maximized_vert,maximized_horz,fullscreen
         sleep 0.2
-        wmctrl -i -r "$CLAUDE_TERM" -e 0,3840,0,960,1080
+        wmctrl -i -r "$CLAUDE_TERM" -e 0,4000,100,800,800
+        sleep 0.5
+        xdotool windowactivate --sync "$CLAUDE_TERM"
+        sleep 0.3
+        xdotool key super+Left
+        sleep 0.3
     fi
 
-    # 4. Move current terminal to RIGHT monitor (right half)
+    # 4. Move current terminal to RIGHT monitor (right half) using GNOME tiling
     echo "📍 Moving current terminal to right monitor (right half)..."
-    sleep 0.3
-    wmctrl -i -r "$CURRENT_TERMINAL_ID" -b remove,maximized_vert,maximized_horz
+    wmctrl -i -r "$CURRENT_TERMINAL_ID" -b remove,maximized_vert,maximized_horz,fullscreen
     sleep 0.2
-    wmctrl -i -r "$CURRENT_TERMINAL_ID" -e 0,4800,0,960,1080
+    wmctrl -i -r "$CURRENT_TERMINAL_ID" -e 0,4000,100,800,800
+    sleep 0.5
+    xdotool windowactivate --sync "$CURRENT_TERMINAL_ID"
+    sleep 0.3
+    xdotool key super+Right
 
     echo ""
     echo "✨ Workspace ready!"
     echo "   📍 Chrome (Linear + GitHub): Left monitor (fullscreen)"
-    echo "   📍 VSCode: Middle monitor (fullscreen)"
+    echo "   📍 VSCode: Middle monitor (maximized)"
     echo "   📍 Claude terminal: Right monitor (left half)"
     echo "   📍 Work terminal: Right monitor (right half)"
     echo ""

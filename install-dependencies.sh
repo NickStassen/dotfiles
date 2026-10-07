@@ -33,6 +33,11 @@ if [ "$OS" = "ubuntu" ] || [ "$OS" = "debian" ]; then
         zsh-syntax-highlighting \
         xsel
 
+    # IPython calculator. No recommends: they pull apt matplotlib, which breaks a pip-installed one
+    sudo apt-get install -y --no-install-recommends ipython3 python3-pyqt6 python3-pyqt6.qtsvg
+    python3 -c 'import numpy' 2>/dev/null || sudo apt-get install -y python3-numpy
+    python3 -c 'import matplotlib' 2>/dev/null || sudo apt-get install -y python3-matplotlib
+
     # Install Nerd Fonts (MesloLGS NF - recommended for Powerlevel10k)
     if ! fc-list | grep -qi "MesloLGS"; then
         echo "Installing MesloLGS Nerd Font..."

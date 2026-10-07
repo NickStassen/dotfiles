@@ -11,6 +11,7 @@ Terminal configuration with ZSH, Oh-My-Zsh, Powerlevel10k, and modern CLI tools.
 - **Linear CLI** integration for task management
 - **GitHub CLI** for PR reviews
 - **Multi-monitor workspace automation** (GNOME-specific)
+- **IPython calculator**: numpy/matplotlib preloaded, `calc` one-liner, `Super+C` hotkey (GNOME)
 
 ## Quick Install
 
@@ -42,6 +43,7 @@ source ~/.zshrc
 - `~/.zshrc` → `~/dotfiles/zshrc`
 - `~/.p10k.zsh` → `~/dotfiles/p10k.zsh`
 - `~/.gitconfig` → `~/dotfiles/gitconfig`
+- `~/.ipython/profile_default/ipython_config.py` and `startup/00-imports.ipy` → `~/dotfiles/ipython/`
 
 ### Dependencies
 - ZSH shell with Oh-My-Zsh framework
@@ -51,6 +53,7 @@ source ~/.zshrc
 - Deno runtime
 - Linear CLI
 - Window management tools (xdotool, wmctrl)
+- IPython, numpy, matplotlib, PyQt6 (+QtSvg for IPython's Qt event loop)
 
 ## Custom Functions
 
@@ -74,6 +77,13 @@ Automatically:
 - Checks out PR branch
 - Opens VSCode in new window
 - Opens PR in browser (new window)
+
+### IPython calculator
+`ipython` (or `Super+C`) starts with `np`, `plt`, and bare `pi`, `e`, `sqrt`, `sin`, `log`, ... loaded; floats print as `1.414`, not `np.float64(1.414)`. Plots open in live Qt windows (falls back to Agg over SSH).
+```bash
+calc sqrt(2)*pi        # one-shot math from the shell, no quoting needed
+```
+`^` is XOR in Python; use `**` for powers.
 
 ## Secrets Management
 

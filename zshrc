@@ -122,6 +122,12 @@ source $ZSH/oh-my-zsh.sh
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 
+# IPython calculator (config in ~/dotfiles/ipython); apt only ships ipython3
+command -v ipython &> /dev/null || alias ipython='ipython3'
+# quick one-shot math without opening ipython: calc 2**10, calc sqrt(2)*pi, calc (3+4)*5
+calc() { python3 -c "from math import *; print($*)" }
+alias calc='noglob calc'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

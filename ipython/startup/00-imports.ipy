@@ -1,0 +1,7 @@
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from numpy import pi, e, inf, sqrt, cbrt, exp, log, log10, log2, sin, cos, tan, arcsin, arccos, arctan, arctan2, hypot, degrees, radians
+np.set_printoptions(legacy="1.25")  # print 1.414, not np.float64(1.414)
+if os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):  # headless/ssh: matplotlib falls back to Agg
+    %matplotlib qt

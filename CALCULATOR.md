@@ -115,6 +115,8 @@ sp.limit(sp.sin(x)/x, x, 0)                # 1
 sp.series(sp.tan(x), x, 0, 6)              # x + x**3/3 + 2*x**5/15 + O(x**6)
 sp.simplify(sp.sin(x)**2 + sp.cos(x)**2)   # 1
 (x**2 + 1).subs(x, 2)                      # plug in a value -> 5
+F = sp.integrate(sp.exp(-x), x); F.evalf(subs={x: 2})   # numeric value at x=2 -> -0.1353
+G = sp.Lambda(x, F); G(2)                  # expression as a callable function -> -exp(-2)
 ```
 
 Linear algebra:
@@ -202,6 +204,7 @@ Prune old logs: `find ~/ipython-logs -mtime +90 -delete`.
 - `^` is XOR (`2^10` is `8`). Powers are `**`.
 - Trig takes radians: `sin(30*deg)` or `sin(radians(30))`, not `sin(30)`.
 - Use `sp.sin`, `sp.exp`, ... on sympy symbols. The bare `sin` is numpy's and fails on symbols.
+- In sympy expressions use `sp.exp(-x)` / `sp.E`, `sp.pi`, `sp.oo`. The bare `e` and `pi` are floats, so `e**(-x)` gives `2.718...**(-x)` instead of `exp(-x)`.
 - Assigning `e = 5` or `x = ...` hides the preloaded name for that session.
 - Over SSH (no display), plots don't open windows; save them with `plt.savefig('plot.png')`.
 

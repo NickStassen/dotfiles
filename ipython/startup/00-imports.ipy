@@ -1,7 +1,19 @@
-import os
+import os, time
 import numpy as np
 import matplotlib.pyplot as plt
+import sympy as sp
 from numpy import pi, e, inf, sqrt, cbrt, exp, log, log10, log2, sin, cos, tan, arcsin, arccos, arctan, arctan2, hypot, degrees, radians
 np.set_printoptions(legacy="1.25")  # print 1.414, not np.float64(1.414)
+
+# unit multipliers (SI: meters, radians): 30*deg -> rad, 1.55*um/(25*mm) -> rad; divide to read back: ifov/urad
+km, mm, um, nm = 1e3, 1e-3, 1e-6, 1e-9
+mrad, urad = 1e-3, 1e-6
+deg, arcmin, arcsec = pi/180, pi/10800, pi/648000
+
+# log every session (inputs + outputs) to ~/ipython-logs; bring one back with %run -i <file>
+_log = os.path.expanduser(time.strftime("~/ipython-logs/%Y-%m-%d_%H%M%S.py"))
+os.makedirs(os.path.dirname(_log), exist_ok=True)
+%logstart -o -q $_log
+
 if os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"):  # headless/ssh: matplotlib falls back to Agg
     %matplotlib qt

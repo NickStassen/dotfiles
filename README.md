@@ -11,7 +11,7 @@ Terminal configuration with ZSH, Oh-My-Zsh, Powerlevel10k, and modern CLI tools.
 - **Linear CLI** integration for task management
 - **GitHub CLI** for PR reviews
 - **Multi-monitor workspace automation** (GNOME-specific)
-- **IPython calculator**: numpy/matplotlib/sympy preloaded, units, auto-saved sessions, `calc` one-liner, `Super+C` hotkey (GNOME) — see [CALCULATOR.md](CALCULATOR.md)
+- **IPython calculator**: numpy/matplotlib/sympy preloaded, units, auto-saved sessions, `calc` one-liner, `Super+C`/`Meta+C` hotkey (GNOME/KDE) — see [CALCULATOR.md](CALCULATOR.md)
 
 ## Quick Install
 
@@ -79,7 +79,7 @@ Automatically:
 - Opens PR in browser (new window)
 
 ### IPython calculator
-`ipython` (or `Super+C`) starts with `np`, `plt`, `sp` (sympy), unit multipliers (`mm`, `mrad`, `deg`, ...), and bare `pi`, `e`, `sqrt`, `sin`, `log`, ... loaded; floats print as `1.414`, not `np.float64(1.414)`. Plots open in live Qt windows (falls back to Agg over SSH).
+`ipython` (or `Super+C` on GNOME, `Meta+C` on KDE, or *IPython Calculator* in the app menu) starts with `np`, `plt`, `sp` (sympy), unit multipliers (`mm`, `mrad`, `deg`, ...), and bare `pi`, `e`, `sqrt`, `sin`, `log`, ... loaded; floats print as `1.414`, not `np.float64(1.414)`. Plots open in live Qt windows (falls back to Agg over SSH).
 ```bash
 calc sqrt(2)*pi        # one-shot math from the shell, no quoting needed
 ```

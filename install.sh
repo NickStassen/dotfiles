@@ -26,8 +26,13 @@ mkdir -p "$IPY/startup"
 ln -sf "$DOTFILES/ipython/ipython_config.py" "$IPY/ipython_config.py"
 ln -sf "$DOTFILES/ipython/startup/00-imports.ipy" "$IPY/startup/00-imports.ipy"
 
-# GNOME: Super+C opens an IPython calculator terminal
-if command -v gsettings &> /dev/null; then
+# IPython calculator: app-menu entry, plus Super/Meta+C on GNOME/KDE (skipped over SSH)
+mkdir -p "$HOME/.local/share/applications"
+cp "$DOTFILES/ipython/ipython-calc.desktop" "$HOME/.local/share/applications/"
+if [[ $XDG_CURRENT_DESKTOP == *KDE* ]]; then
+    # Plasma reads this at next login (or System Settings > Shortcuts > Apply)
+    "kwriteconfig${KDE_SESSION_VERSION:-6}" --file kglobalshortcutsrc --group services --group ipython-calc.desktop --key _launch "Meta+C"
+elif [[ $XDG_CURRENT_DESKTOP == *GNOME* ]]; then
     K=org.gnome.settings-daemon.plugins.media-keys
     P=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ipython-calc/
     cur=$(gsettings get $K custom-keybindings)

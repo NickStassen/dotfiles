@@ -17,7 +17,8 @@ A scientific calculator, symbolic math engine, and plotter in one terminal: IPyt
 
 | How | What you get |
 |-----|--------------|
-| `Super+C` | New terminal with the calculator (GNOME) |
+| `Super+C` / `Meta+C` | New terminal with the calculator (GNOME / KDE Plasma; on KDE, active after your next login) |
+| App menu → *IPython Calculator* | Same, from the launcher or KRunner on any desktop |
 | `ipython` | Calculator in the current terminal |
 | `calc <expr>` | One-shot answer from the shell, no quoting: `calc sqrt(2)*pi`, `calc (3+4)*5` |
 | `isympy -I` | Pure symbolic session: every name is sympy, unknown names become symbols, `1/3` stays exact |
@@ -211,6 +212,7 @@ Prune old logs: `find ~/ipython-logs -mtime +90 -delete`.
 | `ipython/startup/00-imports.ipy` | Imports, units, session logging, plot backend |
 | `ipython/ipython_config.py` | IPython settings (banner, exit confirmation) |
 | `zshrc` | `calc` helper, `ipython` alias |
-| `install.sh` | Symlinks and the `Super+C` shortcut |
+| `install.sh` | Symlinks, app-menu entry, and the `Super+C`/`Meta+C` shortcut |
+| `ipython/ipython-calc.desktop` | The app-menu entry |
 
 Add your own constants or functions to the startup file; any extra `*.py`/`*.ipy` file in `~/.ipython/profile_default/startup/` runs too, in name order.

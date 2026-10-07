@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=IPython Calculator
+Comment=Calculator with numpy, sympy, units and plotting
+Exec=python3 -m IPython
+Icon=accessories-calculator
+Terminal=true
+Categories=Utility;Calculator;
